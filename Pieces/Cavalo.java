@@ -29,7 +29,7 @@ public class Cavalo extends Piece {
         int distanciaY = Math.abs(yFinal - this.coordenada.getColuna());
 
         if((distanciaX == 1 && distanciaY == 2) || (distanciaX == 2 && distanciaY == 1))
-            return true;
+             return xFinal >= 1 && xFinal <= 8 && yFinal >= 1 && yFinal <= 8;
         return false;
     }
 

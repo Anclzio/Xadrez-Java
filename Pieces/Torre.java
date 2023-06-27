@@ -25,7 +25,7 @@ public class Torre extends Piece {
     public boolean validaMovimento(int xFinal, int yFinal) 
     {
         if(xFinal == this.coordenada.getLinha() || yFinal == this.coordenada.getColuna())
-            return true;
+            return xFinal >= 1 && xFinal <= 8 && yFinal >= 1 && yFinal <= 8;
         return false;
     }
 

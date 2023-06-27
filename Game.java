@@ -93,7 +93,7 @@ public class Game {
                             if ((turnoDasBrancas && pecaAux.getCor() == Cor.BRANCO) || (!turnoDasBrancas && pecaAux.getCor() == Cor.PRETO)) 
                             {
                                 pecaSelecionada = tabuleiro.getPeca(coordenada);
-                                System.out.println("Selecionei a peca " + pecaSelecionada);
+                                System.out.println(pecaSelecionada);
                                 System.out.println(pecaSelecionada.movimentosValidos(tabuleiro));
 
                                 List<Movimentos> movimentosValidos = pecaSelecionada.movimentosValidos(tabuleiro);
@@ -124,7 +124,7 @@ public class Game {
                     else 
                     {                                                                                             
                         Movimentos movimento = new Movimentos(pecaSelecionada.getCoordenada(), coordenada);
-                        System.out.println(movimento);
+                        System.out.println(pecaSelecionada +""+ movimento);
                         movimentosValidosDestaque.clear();
                                     
                         if (pecaSelecionada.movimentosValidos(tabuleiro).contains(movimento)) 

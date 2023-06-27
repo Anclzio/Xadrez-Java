@@ -1,9 +1,6 @@
 package Tabuleiro;
 
-import Pieces.Coordenada;
-import Pieces.Piece;
-import Pieces.Rei;
-import Pieces.Torre;
+import Pieces.*;
 
 public class Movimentos {
     private Coordenada origem;
@@ -81,9 +78,12 @@ public class Movimentos {
     
     @Override
     public String toString()
-    {
-        return ("L" + this.origem.getLinha() + "C" +this.origem.getColuna() + " - - - > " 
-            + "L" + this.destino.getLinha() + "C" +this.destino.getColuna()); 
+    {   int aux = destino.getColuna() + 96;
+
+        if(this.pecaCapturada != null)
+            return ("x" + (char)aux + destino.getLinha());
+
+        return (""+(char) aux + destino.getLinha()); 
     }
 
     @Override

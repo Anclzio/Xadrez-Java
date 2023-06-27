@@ -39,4 +39,12 @@ public final class Coordenada {
         return Objects.hash(linha, coluna);
     }
 
+    @Override
+    public String toString()
+    {   
+        int aux = coluna + 96;
+        
+        return ((char)aux +""+ linha);
+    }
+
 }

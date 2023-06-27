@@ -26,7 +26,6 @@ public class Rainha extends Piece{
         int distanciaY = Math.abs(yFinal - this.coordenada.getColuna());
 
         if (xFinal == this.coordenada.getLinha() || yFinal == this.coordenada.getColuna() || distanciaX == distanciaY) {
-            // Verificar se as coordenadas de destino estão dentro dos limites do tabuleiro
             return xFinal >= 1 && xFinal <= 8 && yFinal >= 1 && yFinal <= 8;
         }
 

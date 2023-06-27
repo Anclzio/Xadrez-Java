@@ -45,6 +45,11 @@ public abstract class Piece {
         this.coordenada = coordenada;
     }
 
+    @Override
+    public String toString()
+    {
+        return (tipo.getNotacao() + "" + coordenada);
+    }
 
     
 }
