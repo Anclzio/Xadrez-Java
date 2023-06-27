@@ -1,8 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import Tabuleiro.*;
 import Pieces.*;
@@ -74,7 +73,6 @@ public class Game{
             
                 Coordenada coordenada = new Coordenada((1 + e.getY()/64), (1 + e.getX()/64));
                 
-
                 if(pecaSelecionada == null)
                 {   
                     Piece pecaAux = tabuleiro.getPeca(coordenada);
@@ -109,31 +107,44 @@ public class Game{
                 }   
                 else
                 {
-                        Movimentos movimento = new Movimentos(pecaSelecionada.getCoordenada(), coordenada);
-                        System.out.println();
-                        System.out.println(movimento);
-    
-                        if(pecaSelecionada.movimentosValidos(tabuleiro).contains(movimento))
+                    Movimentos movimento = new Movimentos(pecaSelecionada.getCoordenada(), coordenada);
+                    System.out.println();
+                    System.out.println(movimento);
+
+                    if(pecaSelecionada.movimentosValidos(tabuleiro).contains(movimento))
+                    {
+                        
+                        Tabuleiro tabuleiroTemporario = new Tabuleiro(tabuleiro); 
+                        movimento.moverPeca(movimento, tabuleiroTemporario); 
+                        boolean jogadorEmCheck = tabuleiroTemporario.estaEmCheck(tabuleiroTemporario, turnoDasBrancas[0] ? Cor.BRANCO : Cor.PRETO);
+
+                        if (!jogadorEmCheck) 
                         {
                             movimento.moverPeca(movimento, tabuleiro);
-                            System.out.println("sucesso");
+
                             turnoDasBrancas[0] = !turnoDasBrancas[0];
                             jogadorAtualEmCheck[0] = tabuleiro.estaEmCheck(tabuleiro, turnoDasBrancas[0] ? Cor.BRANCO : Cor.PRETO);
+
                             if (jogadorAtualEmCheck[0]) 
-                            {
                                 System.out.println("O jogador atual está em cheque!");
-                            }
-    
+                            
                             frame.repaint();
                             pecaSelecionada = null;
-                        }
+                        } 
                         else 
                         {
-                            System.out.println("fracasso");
+                            System.out.println("Movimento inválido. Coloca o jogador em cheque.");
                             frame.repaint();
                             pecaSelecionada = null;
                         }
                     }
+                    else 
+                    {
+                        System.out.println("fracasso");
+                        frame.repaint();
+                        pecaSelecionada = null;
+                    }
+                }
                     
                 
             }

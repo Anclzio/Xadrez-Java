@@ -8,7 +8,7 @@ import Tabuleiro.Tabuleiro;
 import enums.Cor;
 import enums.Tipo;
 
-public class Rei extends Piece{
+public class Rei extends Piece {
 
     public Rei(Coordenada coordenada, Cor corDaPeca) 
     {
@@ -22,7 +22,7 @@ public class Rei extends Piece{
         int distanciaX = Math.abs(xFinal - this.getCoordenada().getLinha());
         int distanciaY = Math.abs(yFinal - this.getCoordenada().getColuna());
 
-        //O rei se move em qualquer direção uma unica casa
+        // O rei se move em qualquer direção uma única casa
         if (distanciaX <= 1 && distanciaY <= 1)
             return true;
         return false;
@@ -48,8 +48,4 @@ public class Rei extends Piece{
 
         return movimentosValidos;
     }
-    
-    
-
-    
 }

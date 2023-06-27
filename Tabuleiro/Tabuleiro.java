@@ -14,7 +14,12 @@ public class Tabuleiro {
 
     public Tabuleiro() 
     {
-        pecas = new HashMap<>();
+        pecas = new HashMap<Coordenada, Piece>();
+    }
+
+    public Tabuleiro(Tabuleiro tabuleiro) 
+    {
+        this.pecas = new HashMap<Coordenada,Piece>(tabuleiro.pecas);
     }
 
     public void adicionarPeca(Piece peca) 
@@ -42,7 +47,7 @@ public class Tabuleiro {
 
     public Piece getKing(Tabuleiro tabuleiro, Cor cor)
     {
-        List<Piece> pecas = new ArrayList<>(tabuleiro.pecas.values());
+        List<Piece> pecas = new ArrayList<>(this.pecas.values());
         for(Piece peca : pecas)
         {
             if(peca.geTipo() == Tipo.REI && peca.getCor() == cor)
@@ -52,20 +57,21 @@ public class Tabuleiro {
         return null;
     }
 
-    public List<Piece> getPecasInimigas(Cor corPeca) {
-    List<Piece> pecasInimigas = new ArrayList<>();
+    public List<Piece> getPecasInimigas(Cor corPeca) 
+    {
+        List<Piece> pecasInimigas = new ArrayList<>();
 
-    for (int linha = 0; linha < 8; linha++) {
-        for (int coluna = 0; coluna < 8; coluna++) {
-            Piece peca = getPeca(new Coordenada(linha, coluna));
-            if (peca != null && peca.getCor() != corPeca) {
+        for (Piece peca : pecas.values()) 
+        {
+            if (peca.getCor() != corPeca)
+            {
                 pecasInimigas.add(peca);
             }
         }
+
+        return pecasInimigas;
     }
 
-    return pecasInimigas;
-}
 
 
     public static void populaTabuleiro(Tabuleiro tabuleiro)
@@ -131,27 +137,17 @@ public class Tabuleiro {
     {
         Piece peca = getPeca(coordenadaDestino);
 
-        if (peca != null) 
-        {
-            if (cor == Cor.BRANCO) 
-            {
-                if (peca.getCor() == Cor.PRETO)
-                    return true;
-            } 
-            else if (peca.getCor() == Cor.BRANCO)
-                    return true;   
-        }
-        return false;
+        return peca!= null && peca.getCor() != cor;
     }
 
     public boolean estaEmCheck(Tabuleiro tabuleiro, Cor cor) 
     {   
-        Piece king = getKing(tabuleiro, cor);
-        List<Piece> PecasInimigas = this.getPecasInimigas(king.getCor());
+        Piece king = getKing(this, cor);
+        List<Piece> PecasInimigas = getPecasInimigas(king.getCor());
 
-        for(Piece piece : PecasInimigas)
+        for(Piece peca : PecasInimigas)
         {
-            List<Movimentos> listaDeMovimentos = piece.movimentosValidos(this);
+            List<Movimentos> listaDeMovimentos = peca.movimentosValidos(tabuleiro);
 
             for(Movimentos movimento : listaDeMovimentos)
             {
@@ -164,6 +160,5 @@ public class Tabuleiro {
         }
         return false;
     }
-
-        
+      
 }

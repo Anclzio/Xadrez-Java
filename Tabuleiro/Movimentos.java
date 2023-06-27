@@ -13,6 +13,7 @@ public class Movimentos {
         this.origem = origem;
         this.destino = destino;
     }
+    
     public Movimentos(Coordenada origem, Coordenada destino, Piece pecaCapturada) 
     {
         this.origem = origem;
