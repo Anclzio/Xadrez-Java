@@ -79,7 +79,8 @@ public class Peao extends Piece {
             // Movimento duplo para frente
             i = linhaAtual + 2; j = colunaAtual;
             coordenadaDestino = new Coordenada(i, j);
-            if (validaMovimento(i, j) && tabuleiro.estaVazio(coordenadaDestino) && isPrimeiroMovimento())
+            Coordenada coordenadaIntermediaria = new Coordenada(linhaAtual + 1, colunaAtual);
+            if (validaMovimento(i, j) && tabuleiro.estaVazio(coordenadaDestino) && isPrimeiroMovimento() && tabuleiro.estaVazio(coordenadaIntermediaria))
                 movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino));
             
         }

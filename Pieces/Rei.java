@@ -9,6 +9,7 @@ import enums.Cor;
 import enums.Tipo;
 
 public class Rei extends Piece {
+    public boolean moveu = false;
 
     public Rei(Coordenada coordenada, Cor corDaPeca) 
     {
@@ -25,6 +26,7 @@ public class Rei extends Piece {
         // O rei se move em qualquer direção uma única casa
         if (distanciaX <= 1 && distanciaY <= 1)
             return true;
+
         return false;
     }
 
@@ -41,6 +43,7 @@ public class Rei extends Piece {
             for (int j = colunaAtual - 1; j <= colunaAtual + 1; j++) 
             {
                 Coordenada coordenadaDestino = new Coordenada(i, j);
+
                 if (validaMovimento(i, j) && (tabuleiro.estaVazio(coordenadaDestino) || tabuleiro.existePecaInimiga(coordenadaDestino, corDaPeca)))
                     movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino, tabuleiro.getPeca(coordenadaDestino)));
             }

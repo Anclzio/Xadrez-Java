@@ -37,11 +37,25 @@ public class Tabuleiro {
         return !pecas.containsKey(coordenada);
     }
 
+    public boolean estaVazio(int linha, int coluna) 
+    {
+        Coordenada coordenada = new Coordenada(linha, coluna);
+
+        return estaVazio(coordenada);
+    }
+
 
     public Piece getPeca(Coordenada coordenada)
     {
         return pecas.get(coordenada);
      
+    }
+
+    public Piece getPeca(int linha, int coluna)
+    {
+        Coordenada coordenada = new Coordenada(linha, coluna);
+
+        return getPeca(coordenada);
     }
 
 
@@ -151,11 +165,8 @@ public class Tabuleiro {
 
             for(Movimentos movimento : listaDeMovimentos)
             {
-                if(movimento.getDestino().equals(king.getCoordenada()))
-                {
-                    System.out.println("Check!!!!");
-                    return true;
-                }                   
+                if(movimento.getDestino().equals(king.getCoordenada())) 
+                    return true;                 
             }
         }
         return false;

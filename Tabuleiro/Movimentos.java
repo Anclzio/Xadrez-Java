@@ -2,6 +2,8 @@ package Tabuleiro;
 
 import Pieces.Coordenada;
 import Pieces.Piece;
+import Pieces.Rei;
+import Pieces.Torre;
 
 public class Movimentos {
     private Coordenada origem;
@@ -67,8 +69,23 @@ public class Movimentos {
         }
     }
 
+    public void roque(Tabuleiro tabuleiro, Rei rei, Torre torre)
+    {
+        if(!rei.moveu && !torre.moveu)
+        {
+            
+        }
+    }
+
         
-        
+    
+    @Override
+    public String toString()
+    {
+        return ("L" + this.origem.getLinha() + "C" +this.origem.getColuna() + " - - - > " 
+            + "L" + this.destino.getLinha() + "C" +this.destino.getColuna()); 
+    }
+
     @Override
     public boolean equals(Object obj) 
     {
