@@ -9,12 +9,13 @@ import enums.Cor;
 import enums.Tipo;
 
 public class Torre extends Piece {
-    public boolean moveu = false;
+    
 
     public Torre(Coordenada coordenada, Cor corDaPeca) 
     {
         super(coordenada, corDaPeca);
         tipo = Tipo.TORRE;
+        moveu = false;
     }
 
     /*

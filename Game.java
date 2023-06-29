@@ -28,6 +28,10 @@ public class Game {
             jogadorAtualEmCheck = false;
 
             JFrame frame = new JFrame();
+
+            /*
+             * Desenha a GUI
+             */
             JPanel panel = new JPanel()
             {
                 @Override
@@ -90,6 +94,7 @@ public class Game {
                         
                         if (pecaAux != null) 
                         {
+                            //Verifica se o turno do jogador é da mesma cor da peça escolhida
                             if ((turnoDasBrancas && pecaAux.getCor() == Cor.BRANCO) || (!turnoDasBrancas && pecaAux.getCor() == Cor.PRETO)) 
                             {
                                 pecaSelecionada = tabuleiro.getPeca(coordenada);
@@ -98,16 +103,21 @@ public class Game {
 
                                 List<Movimentos> movimentosValidos = pecaSelecionada.movimentosValidos(tabuleiro);
 
+                                //limpa os dstaques de movimento da tela quando eles existem
                                 if (movimentosValidosDestaque != null)
                                     movimentosValidosDestaque.clear();
 
+                                /*Faz uma verificação para saber se o jogador esta em xeque em 
+                                  cada movimento valido para inserir o destaque de movimento
+                                  na GUI
+                                */ 
                                 for (Movimentos movimento : movimentosValidos)
                                 {
                                     Tabuleiro tabuleiroTemporario = new Tabuleiro(tabuleiro);
-                                    movimento.moverPeca(movimento, tabuleiroTemporario);
+                                    Movimentos.moverPeca(movimento, tabuleiroTemporario);
+
                                     boolean jogadorEmCheck = tabuleiroTemporario.estaEmCheck(tabuleiroTemporario, turnoDasBrancas 
                                                                                             ? Cor.BRANCO : Cor.PRETO);
-                                    movimento.desfazerMovimento(movimento, tabuleiroTemporario);
 
                                     if (!jogadorEmCheck)
                                         movimentosValidosDestaque.add(movimento.getDestino());
@@ -121,23 +131,41 @@ public class Game {
                             
                         }
                     } 
-                    else 
-                    {                                                                                             
+                    else //Existindo peça selecionada
+                    {                                                                                           
                         Movimentos movimento = new Movimentos(pecaSelecionada.getCoordenada(), coordenada);
-                        System.out.println(pecaSelecionada +""+ movimento);
+                        System.out.println(movimento);
                         movimentosValidosDestaque.clear();
-                                    
+
+                        /*  Cria um tabuleiro temporario para verificar se 
+                            o movimento deixa o jogador em xeque, em caso positivo
+                            imprime uma msg no console, em caso negativo realiza o movimento
+                            no tabuleiro orignial e verifica se o movimento deixou o adversario
+                            em xeque.
+                        */        
                         if (pecaSelecionada.movimentosValidos(tabuleiro).contains(movimento)) 
-                        {
+                        {   
+                            /*
+                             * Depois de muito esforço e sofrimento consegui identificar o motivo
+                             * pelo qual não conseguia fazer roque
+                             */
+                            for(Movimentos mov : pecaSelecionada.movimentosValidos(tabuleiro))
+                            {
+                                if(mov.equals(movimento))
+                                {   
+                                    movimento.ehRoque = mov.ehRoque;
+                                    movimento.ehRoqueGrande = mov.ehRoqueGrande;
+                                }
+                                    
+                            }
                             Tabuleiro tabuleiroTemporario = new Tabuleiro(tabuleiro);
-                            movimento.moverPeca(movimento, tabuleiroTemporario);
+                            Movimentos.moverPeca(movimento, tabuleiroTemporario);
                             boolean jogadorEmCheck = tabuleiroTemporario.estaEmCheck(tabuleiroTemporario, turnoDasBrancas 
                                                                                     ? Cor.BRANCO : Cor.PRETO);
-                            movimento.desfazerMovimento(movimento, tabuleiroTemporario);
 
                             if (!jogadorEmCheck) 
                             {
-                                movimento.moverPeca(movimento, tabuleiro);
+                                Movimentos.moverPeca(movimento, tabuleiro);
 
                                 turnoDasBrancas = !turnoDasBrancas;
                                 jogadorAtualEmCheck = tabuleiro.estaEmCheck(tabuleiro,turnoDasBrancas ? Cor.BRANCO : Cor.PRETO);
@@ -174,7 +202,9 @@ public class Game {
     
     }
 
-          
+    /*
+     * Recebe uma peca e retorna a imagem que representa aquela Peca
+     */
     private static Image getImagemPeca(Piece peca) 
     {
         String imagePath = null;

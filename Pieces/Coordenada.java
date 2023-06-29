@@ -2,9 +2,9 @@ package Pieces;
 
 import java.util.Objects;
 
-public final class Coordenada {
-    private final int linha;
-    private final int coluna;
+public final class Coordenada implements Cloneable{
+    private int linha;
+    private int coluna;
 
     public Coordenada(int linha, int coluna) 
     {
@@ -47,4 +47,18 @@ public final class Coordenada {
         return ((char)aux +""+ linha);
     }
 
+    @Override
+    public Coordenada clone() {
+        try {
+            Coordenada cloned = (Coordenada) super.clone();
+            cloned.coluna = this.coluna;
+            cloned.linha = this.linha;
+
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+
+            return null;
+        }
+    
+    }
 }
