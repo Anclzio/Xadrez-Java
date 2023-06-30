@@ -141,23 +141,25 @@ public class Tabuleiro {
     {
         Piece[] pecasBrancas = new Piece[]
         {
-            new Bispo(new Coordenada(1, 3), Cor.BRANCO),
-            new Bispo(new Coordenada(1, 6), Cor.BRANCO),
-            new Cavalo(new Coordenada(1, 2), Cor.BRANCO),
-            new Cavalo(new Coordenada(1, 7), Cor.BRANCO),
-            new Rainha(new Coordenada(1, 4), Cor.BRANCO),
-            new Peao(new Coordenada(2, 1), Cor.BRANCO),
-            new Peao(new Coordenada(2, 2), Cor.BRANCO),
-            new Peao(new Coordenada(2, 3), Cor.BRANCO),
-            new Peao(new Coordenada(2, 4), Cor.BRANCO),
-            new Peao(new Coordenada(2, 5), Cor.BRANCO),
-            new Peao(new Coordenada(2, 6), Cor.BRANCO),
-            new Peao(new Coordenada(2, 7), Cor.BRANCO),
-            new Peao(new Coordenada(2, 8), Cor.BRANCO),
-            new Torre(new Coordenada(1, 1), Cor.BRANCO),
-            new Torre(new Coordenada(1, 8), Cor.BRANCO),
+
+             new Bispo(new Coordenada(1, 3), Cor.BRANCO),
+             new Bispo(new Coordenada(1, 6), Cor.BRANCO),
+             new Cavalo(new Coordenada(1, 2), Cor.BRANCO),
+             new Cavalo(new Coordenada(1, 7), Cor.BRANCO),
+             new Rainha(new Coordenada(1, 4), Cor.BRANCO),
+             new Peao(new Coordenada(2, 1), Cor.BRANCO),
+             new Peao(new Coordenada(2, 3), Cor.BRANCO),
+             new Peao(new Coordenada(2, 4), Cor.BRANCO),
+             new Peao(new Coordenada(2, 5), Cor.BRANCO),
+             new Peao(new Coordenada(2, 6), Cor.BRANCO),
+             new Peao(new Coordenada(2, 7), Cor.BRANCO),
+             new Peao(new Coordenada(2, 8), Cor.BRANCO),
+             new Torre(new Coordenada(1, 1), Cor.BRANCO),
+             new Torre(new Coordenada(1, 8), Cor.BRANCO),
+   
             new Rei(new Coordenada(1, 5), Cor.BRANCO),
-                
+            new Peao(new Coordenada(2, 2), Cor.BRANCO),
+             
         };
 
         for (Piece peca : pecasBrancas) 
@@ -167,6 +169,7 @@ public class Tabuleiro {
 
         Piece[] pecasPretas = new Piece[]
         {   
+
             new Bispo(new Coordenada(8, 3), Cor.PRETO),
             new Bispo(new Coordenada(8, 6), Cor.PRETO),
             new Cavalo(new Coordenada(8, 2), Cor.PRETO),
@@ -179,11 +182,11 @@ public class Tabuleiro {
             new Peao(new Coordenada(7, 5), Cor.PRETO),
             new Peao(new Coordenada(7, 6), Cor.PRETO),
             new Peao(new Coordenada(7, 7), Cor.PRETO),
-            new Peao(new Coordenada(7, 8), Cor.PRETO),     
             new Torre(new Coordenada(8, 1), Cor.PRETO),
             new Torre(new Coordenada(8, 8), Cor.PRETO),
+    
             new Rei(new Coordenada(8, 5), Cor.PRETO),
-                
+            new Peao(new Coordenada(7, 8), Cor.PRETO),     
         };
 
         for (Piece peca : pecasPretas) 

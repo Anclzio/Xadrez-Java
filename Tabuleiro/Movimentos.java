@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Pieces.*;
+import enums.Cor;
 
 public class Movimentos {
     private Coordenada origem;
@@ -11,6 +12,7 @@ public class Movimentos {
     private Piece pecaCapturada = null;
     public boolean ehRoque = false;
     public boolean ehRoqueGrande = false;
+    public boolean ehPromocao = false;
 
     public Movimentos(Coordenada origem, Coordenada destino) 
     {
@@ -25,6 +27,21 @@ public class Movimentos {
         this.pecaCapturada = pecaCapturada;
     }
 
+    public Movimentos(Coordenada origem, Coordenada destino, boolean ehPromocao) 
+    {
+        this.origem = origem;
+        this.destino = destino;
+        this.ehPromocao = ehPromocao;
+    }
+
+    public Movimentos(Coordenada origem, Coordenada destino, Piece pecaCapturada, boolean ehPromocao) 
+    {
+        this.origem = origem;
+        this.destino = destino;
+        this.pecaCapturada = pecaCapturada;
+        this.ehPromocao = ehPromocao;
+    }
+
     public Movimentos(Coordenada origem, Coordenada destino, boolean ehRoque, boolean ehRoqueGrande) 
     {
         this.origem = origem;
@@ -34,10 +51,12 @@ public class Movimentos {
     }
 
 
+
+
    /*
     * Recebe um movimento, que ja vem da lista de movimentos validos e portanto ja é validado,
       e um tabuleiro.
-    * Confere se o movimento é um Roque e realiza o movimento
+    * Confere se o movimento é um Roque, ou promoção e realiza o movimento
     */
     public static void moverPeca(Movimentos movimentoValido, Tabuleiro tabuleiro)
     {   
@@ -67,7 +86,14 @@ public class Movimentos {
             }
 
             roque(tabuleiro, (Rei)peca, torre);
-        }   
+        }
+        else if(movimentoValido.ehPromocao == true && peca != null)
+        {
+            Cor cor =  tabuleiro.getPeca(movimentoValido.origem).getCor();
+            System.out.println("promoção");
+            tabuleiro.removePeca(movimentoValido.origem);
+            tabuleiro.adicionarPeca(new Rainha(movimentoValido.destino, cor));
+        }
         else if(peca != null)
         {   
             peca.setCoordenada(movimentoValido.destino);

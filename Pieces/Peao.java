@@ -60,20 +60,35 @@ public class Peao extends Piece {
             i = linhaAtual + 1; j = colunaAtual + 1;
             coordenadaDestino = new Coordenada(i, j);
             if (validaMovimento(i, j) && tabuleiro.existePecaInimiga(coordenadaDestino, corDaPeca))
-                movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino, tabuleiro.getPeca(coordenadaDestino)));
-            
+            {
+                if(i == 8)
+                    movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino,tabuleiro.getPeca(coordenadaDestino) ,true));
+                else
+                    movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino,tabuleiro.getPeca(coordenadaDestino)));
+
+            }
             // Movimento de captura para esquerda
             i = linhaAtual + 1; j = colunaAtual - 1;
             coordenadaDestino = new Coordenada(i, j);
             if (validaMovimento(i, j) && tabuleiro.existePecaInimiga(coordenadaDestino, corDaPeca))
-                movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino, tabuleiro.getPeca(coordenadaDestino)));
+            {
+                if(i == 8)
+                    movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino,tabuleiro.getPeca(coordenadaDestino) ,true));
+                else
+                    movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino,tabuleiro.getPeca(coordenadaDestino)));
+            }
             
 
             // Movimento simples para frente
             i = linhaAtual + 1; j = colunaAtual;
             coordenadaDestino = new Coordenada(i, j);
             if (validaMovimento(i, j) && tabuleiro.estaVazio(coordenadaDestino))
-                movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino));
+            {
+                if(i == 8)
+                    movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino, true)); 
+                else
+                    movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino));                
+            }
             
             
             // Movimento duplo para frente
@@ -91,20 +106,38 @@ public class Peao extends Piece {
             i = linhaAtual - 1; j = colunaAtual + 1;
             coordenadaDestino = new Coordenada(i, j);
             if (validaMovimento(i, j) && tabuleiro.existePecaInimiga(coordenadaDestino, corDaPeca))
-                movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino));
+             {
+                if(i == 1)
+                    movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino, tabuleiro.getPeca(coordenadaDestino),true));
+                else
+                    movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino,tabuleiro.getPeca(coordenadaDestino)));
+
+            }
 
             // Movimento de captura para esquerda
             i = linhaAtual - 1; j = colunaAtual - 1;
             coordenadaDestino = new Coordenada(i, j);
             if (validaMovimento(i, j) && tabuleiro.existePecaInimiga(coordenadaDestino, corDaPeca))
-                movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino));
+            {
+                if(i == 1)
+                    movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino, tabuleiro.getPeca(coordenadaDestino),true));
+                else
+                    movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino,tabuleiro.getPeca(coordenadaDestino)));
+
+            }
             
 
             // Movimento simples para frente
             i = linhaAtual - 1; j = colunaAtual;
             coordenadaDestino = new Coordenada(i, j);
             if (validaMovimento(i, j) && tabuleiro.estaVazio(coordenadaDestino))
-                movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino));
+            {
+                if(i == 1)
+                    movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino, true));
+                else
+                    movimentosValidos.add(new Movimentos(this.coordenada, coordenadaDestino));
+
+            }
             
             
             // Movimento duplo para frente

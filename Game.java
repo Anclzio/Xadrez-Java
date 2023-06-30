@@ -155,6 +155,7 @@ public class Game {
                                 {   
                                     movimento.ehRoque = mov.ehRoque;
                                     movimento.ehRoqueGrande = mov.ehRoqueGrande;
+                                    movimento.ehPromocao = mov.ehPromocao;
                                 }
                                     
                             }
