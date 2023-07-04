@@ -18,6 +18,7 @@ public class Game {
         private boolean turnoDasBrancas;
         private boolean jogadorAtualEmCheck;
         private List<Coordenada> movimentosValidosDestaque = new ArrayList<>();
+        JFrame frame;
 
         
 
@@ -27,7 +28,7 @@ public class Game {
             turnoDasBrancas = true;
             jogadorAtualEmCheck = false;
 
-            JFrame frame = new JFrame();
+            frame = new JFrame();
 
             /*
              * Desenha a GUI
@@ -99,7 +100,6 @@ public class Game {
                             {
                                 pecaSelecionada = tabuleiro.getPeca(coordenada);
                                 System.out.println(pecaSelecionada);
-                                System.out.println(pecaSelecionada.movimentosValidos(tabuleiro));
 
                                 List<Movimentos> movimentosValidos = pecaSelecionada.movimentosValidos(tabuleiro);
 
@@ -134,7 +134,7 @@ public class Game {
                     else //Existindo peça selecionada
                     {                                                                                           
                         Movimentos movimento = new Movimentos(pecaSelecionada.getCoordenada(), coordenada);
-                        System.out.println(movimento);
+
                         movimentosValidosDestaque.clear();
 
                         /*  Cria um tabuleiro temporario para verificar se 
@@ -167,14 +167,17 @@ public class Game {
                             if (!jogadorEmCheck) 
                             {
                                 Movimentos.moverPeca(movimento, tabuleiro);
-
-                                turnoDasBrancas = !turnoDasBrancas;
-                                jogadorAtualEmCheck = tabuleiro.estaEmCheck(tabuleiro,turnoDasBrancas ? Cor.BRANCO : Cor.PRETO);
-
-                                if (jogadorAtualEmCheck)
-                                    System.out.println("O jogador atual está em cheque!");
-
                                 frame.repaint();
+                                if(!verificarXequeMate(turnoDasBrancas ? Cor.PRETO : Cor.BRANCO))
+                                {
+                                    turnoDasBrancas = !turnoDasBrancas;
+                                    jogadorAtualEmCheck = tabuleiro.estaEmCheck(tabuleiro,turnoDasBrancas ? Cor.BRANCO : Cor.PRETO);
+                                    
+                                    if (jogadorAtualEmCheck)
+                                        System.out.println("O jogador atual está em cheque!");
+                                }
+                               
+                               
                                 pecaSelecionada = null;
                             } 
                             else 
@@ -195,6 +198,60 @@ public class Game {
             });
 
         }
+
+    public boolean verificarXequeMate(Cor corJogadorAtual) 
+    {
+        if (tabuleiro.estaEmCheck(tabuleiro, corJogadorAtual)) 
+        {
+            List<Piece> pecasDoJogador = tabuleiro.getPecasDoJogador(corJogadorAtual);
+            
+            for (Piece peca : pecasDoJogador) 
+            {
+                List<Movimentos> movimentosValidos = peca.movimentosValidos(tabuleiro);
+                
+                for (Movimentos movimento : movimentosValidos) 
+                {
+                    Tabuleiro tabuleiroTemporario = new Tabuleiro(tabuleiro);
+                    Movimentos.moverPeca(movimento, tabuleiroTemporario);
+                    
+                    if (!tabuleiroTemporario.estaEmCheck(tabuleiroTemporario, corJogadorAtual))
+                        return false;
+                }
+            }
+            
+            System.out.println("Xeque-mate! O jogador " + corJogadorAtual + " perdeu o jogo.");
+            
+            int resposta = JOptionPane.showConfirmDialog(null, "Deseja reiniciar o jogo?", "Fim de jogo", JOptionPane.YES_NO_OPTION);
+            
+            if (resposta == JOptionPane.YES_OPTION) 
+            {
+                reiniciarJogo();
+                return true;
+            } 
+            else 
+            {
+                frame.dispose();
+                System.exit(0);
+            }
+        }
+        return false;
+    }
+   public void reiniciarJogo() 
+   {
+  
+        tabuleiro = new Tabuleiro();
+        Tabuleiro.populaTabuleiro(tabuleiro);
+        turnoDasBrancas = true;
+        jogadorAtualEmCheck = false;
+        movimentosValidosDestaque.clear();
+
+        frame.repaint();
+    }
+
+  
+
+
+
 
 
     public static void main(String[] args) 

@@ -107,6 +107,20 @@ public class Tabuleiro {
 
         return pecasInimigas;
     }
+    public List<Piece> getPecasDoJogador(Cor corPeca) 
+    {
+        List<Piece> pecasDoJogador = new ArrayList<>();
+
+        for (Piece peca : pecas.values()) 
+        {
+            if (peca.getCor() == corPeca)
+            {
+                pecasDoJogador.add(peca);
+            }
+        }
+
+        return pecasDoJogador;
+    }
 
     public boolean existePecaInimiga(Coordenada coordenadaDestino, Cor cor) 
     {
