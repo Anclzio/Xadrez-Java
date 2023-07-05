@@ -309,7 +309,7 @@ public class Game {
         return null;
     }
 
-    public class ImageLoader 
+    public static class ImageLoader 
     {
         public static ImageIcon loadImage(String path) 
         {
